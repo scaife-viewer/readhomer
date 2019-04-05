@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import axios from 'axios';
+import createPersistedState from 'vuex-persistedstate';
 
 import {
   PREVIOUS_CARD,
@@ -12,6 +13,11 @@ import {
   TOGGLE_RIGHT_SIDEBAR,
   HOMER_SELECT_CARD,
   HOMER_LOOKUP_REFERENCE,
+  ADD_LEFT_WIDGET,
+  ADD_RIGHT_WIDGET,
+  CHANGE_MAIN_WIDGET,
+  REMOVE_LEFT_WIDGET,
+  REMOVE_RIGHT_WIDGET,
 } from './constants';
 import cards from './homer';
 
@@ -29,6 +35,7 @@ const parseHomerReference = (ref) => {
 };
 
 export default new Vuex.Store({
+  plugins: [createPersistedState()],
   state: {
     // Skeleton
     rightOpen: true,
@@ -86,10 +93,43 @@ export default new Vuex.Store({
     [HOMER_SELECT_CARD]: (state, { card }) => {
       state.selectedCard = card;
     },
+    [ADD_LEFT_WIDGET]: (state, displayName) => {
+      state.widgets.left = [
+        ...state.widgets.left,
+        displayName,
+      ];
+    },
+    [ADD_RIGHT_WIDGET]: (state, displayName) => {
+      state.widgets.right = [
+        ...state.widgets.right,
+        displayName,
+      ];
+    },
+    [CHANGE_MAIN_WIDGET]: (state, displayName) => {
+      state.widgets = {
+        ...state.widgets,
+        mainWidget: displayName,
+      };
+    },
+    [REMOVE_LEFT_WIDGET]: (state, index) => {
+      const widgets = [...state.widgets.left];
+      widgets.splice(index, 1);
+      state.widgets.left = widgets;
+    },
+    [REMOVE_RIGHT_WIDGET]: (state, index) => {
+      const widgets = [...state.widgets.right];
+      widgets.splice(index, 1);
+      state.widgets.right = widgets;
+    },
   },
   actions: {
     [TOGGLE_LEFT_SIDEBAR]: ({ commit }) => commit(TOGGLE_LEFT_SIDEBAR),
     [TOGGLE_RIGHT_SIDEBAR]: ({ commit }) => commit(TOGGLE_RIGHT_SIDEBAR),
+    [ADD_LEFT_WIDGET]: ({ commit }, { displayName }) => commit(ADD_LEFT_WIDGET, displayName),
+    [ADD_RIGHT_WIDGET]: ({ commit }, { displayName }) => commit(ADD_RIGHT_WIDGET, displayName),
+    [CHANGE_MAIN_WIDGET]: ({ commit }, { displayName }) => commit(CHANGE_MAIN_WIDGET, displayName),
+    [REMOVE_LEFT_WIDGET]: ({ commit }, { index }) => commit(REMOVE_LEFT_WIDGET, index),
+    [REMOVE_RIGHT_WIDGET]: ({ commit }, { index }) => commit(REMOVE_RIGHT_WIDGET, index),
     [SET_PASSAGE_TEXT]: ({ commit }, { lines }) => {
       commit(SET_PASSAGE_TEXT, lines);
     },

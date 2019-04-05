@@ -16,7 +16,16 @@
 
 <script>
 import EditableSkeleton from './skeleton/EditableSkeleton.vue';
-import { TOGGLE_RIGHT_SIDEBAR, TOGGLE_LEFT_SIDEBAR } from './constants';
+import {
+  TOGGLE_RIGHT_SIDEBAR,
+  TOGGLE_LEFT_SIDEBAR,
+  ADD_LEFT_WIDGET,
+  ADD_RIGHT_WIDGET,
+  CHANGE_MAIN_WIDGET,
+  REMOVE_LEFT_WIDGET,
+  REMOVE_RIGHT_WIDGET,
+} from './constants';
+import widgets from './widgets';
 
 export default {
   name: 'app',
@@ -31,32 +40,35 @@ export default {
       this.$store.dispatch(TOGGLE_RIGHT_SIDEBAR);
     },
     addWidget(name, widget) {
-      this.$store.state.widgets[name] = [
-        ...this.$store.state.widgets[name],
-        widget,
-      ];
+      if (name === 'left') {
+        this.$store.dispatch(ADD_LEFT_WIDGET, { displayName: widget.scaifeConfig.displayName });
+      } else {
+        this.$store.dispatch(ADD_RIGHT_WIDGET, { displayName: widget.scaifeConfig.displayName });
+      }
     },
     changeWidget(mainWidget) {
-      this.$store.state.widgets = {
-        ...this.$store.state.widgets,
-        mainWidget,
-      };
+      this.$store.dispatch(CHANGE_MAIN_WIDGET, { displayName: mainWidget.scaifeConfig.displayName });
     },
     removeWidget(name, index) {
-      const widgets = [...this.$store.state.widgets[name]];
-      widgets.splice(index, 1);
-      this.$store.state.widgets[name] = widgets;
+      if (name === 'left') {
+        this.$store.dispatch(REMOVE_LEFT_WIDGET, { index });
+      } else {
+        this.$store.dispatch(REMOVE_RIGHT_WIDGET, { index });
+      }
     },
   },
   computed: {
+    widgets() {
+      return widgets;
+    },
     mainWidget() {
-      return this.$store.state.widgets.mainWidget;
+      return widgets[this.$store.state.widgets.mainWidget] || null;
     },
     leftWidgets() {
-      return this.$store.state.widgets.left;
+      return this.$store.state.widgets.left.filter(w => widgets[w] !== undefined).map(w => widgets[w]);
     },
     rightWidgets() {
-      return this.$store.state.widgets.right;
+      return this.$store.state.widgets.right.filter(w => widgets[w] !== undefined).map(w => widgets[w]);
     },
     leftOpen() {
       return this.$store.state.leftOpen;
