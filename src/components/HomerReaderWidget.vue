@@ -1,13 +1,17 @@
 <template>
   <div class="select-passage-reader">
-    <HomerSource v-model="passageText" />
-    <Reader :passage-text="passageText" />
+    <ReferenceInput @readFromStore="onReadFromStore" @lookup="onLookup" />
+    <Reader :passage-text="text" />
   </div>
 </template>
 
 <script>
-import HomerSource from './HomerSource.vue';
+import axios from 'axios';
+
 import Reader from '../reader/Reader.vue';
+import ReferenceInput from '../reader/ReferenceInput.vue';
+
+const URN = 'urn:cts:greekLit:tlg0012.tlg001.perseus-grc2';
 
 export default {
   scaifeConfig: {
@@ -15,13 +19,31 @@ export default {
     location: 'both',
   },
   components: {
-    HomerSource,
     Reader,
+    ReferenceInput,
+  },
+  methods: {
+    onReadFromStore(lookupFromStore) {
+      this.lookupFromStore = lookupFromStore;
+    },
+    onLookup(reference) {
+      this.reference = reference;
+      axios
+        .get(`https://homer-api.herokuapp.com/${URN}:${this.reference}/`)
+        .then(r => this.passageText = r.data);
+    },
   },
   data() {
     return {
+      reference: '',
+      lookupFromStore: false,
       passageText: '',
     };
   },
+  computed: {
+    text() {
+      return this.lookupFromStore ? this.$store.state.passageText : this.passageText;
+    }
+  }
 };
 </script>
