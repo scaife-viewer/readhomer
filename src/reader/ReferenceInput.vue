@@ -1,12 +1,12 @@
 <template>
   <div class="reference-input">
-    <div class="input-group">
-      <input v-model="reference" @keyup.enter="lookup" placeholder="2.1-3.15" />
-      <button @click.prevent="lookup">Lookup</button>
+    <div class="input-group" :class="{ disabled: readFromStore }">
+      <input v-model="reference" :disabled="readFromStore" @keyup.enter="lookup" placeholder="2.1-3.15" />
+      <button :disabled="readFromStore" @click.prevent="lookup">Lookup</button>
     </div>
-    <label class="global-input">
-      <input type="checkbox" v-model="readFromStore" /> Global Text
-    </label>
+    <button class="global-input" @click.prevent="toggleReadFromSource" :class="{ active: readFromStore }">
+      Sync to Global Reference
+    </button>
   </div>
 </template>
 
@@ -24,6 +24,9 @@ export default {
     }
   },
   methods: {
+    toggleReadFromSource() {
+      this.readFromStore = !this.readFromStore;
+    },
     lookup() {
       this.$emit('lookup', this.reference);
     },
