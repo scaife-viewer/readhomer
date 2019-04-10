@@ -2,11 +2,10 @@
   <div class="reference-input">
     <div class="input-group">
       <input v-model="reference" @keyup.enter="lookup" placeholder="2.1-3.15" />
+      <button @click.prevent="lookup">Lookup</button>
     </div>
-    <button @click.prevent="lookup">Lookup</button>
-    <label>
-      <input type="checkbox" v-model="readFromStore" />
-      Read from Store
+    <label class="global-input">
+      <input type="checkbox" v-model="readFromStore" /> Global Text
     </label>
   </div>
 </template>
@@ -36,19 +35,31 @@ export default {
   @import "../variables.scss";
 
   .reference-input {
-    margin: 15px 24px;
+    padding: 15px 24px;
+    border-bottom: 1px solid $gray-200;
+    margin-bottom: 15px;
+    background: $gray-100;
     flex: 1;
     display: flex;
+    justify-content: space-between;
+    .global-input {
+      margin: auto 0;
+      font-size: 12px;
+    }
+    .input-group {
+      display: flex;
+      height: 30px;
+    }
     input {
       padding: 5px 10px;
       margin-right: 5px;
     }
     button {
-      margin-right: 10px;
       background: $gray-200;
       border: 1px solid $gray-400;
       border-radius: 3px;
       cursor: pointer;
+      margin: 1px 10px 1px 0;
       &:hover {
         background: $gray-300;
       }
