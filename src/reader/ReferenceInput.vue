@@ -4,7 +4,10 @@
       <input v-model="reference" @keyup.enter="lookup" placeholder="2.1-3.15" />
     </div>
     <button @click.prevent="lookup">Lookup</button>
-    <input type="checkbox" v-model="readFromStore" />
+    <label>
+      <input type="checkbox" v-model="readFromStore" />
+      Read from Store
+    </label>
   </div>
 </template>
 
@@ -33,7 +36,22 @@ export default {
   @import "../variables.scss";
 
   .reference-input {
-    margin: 0 2em;
+    margin: 15px 24px;
     flex: 1;
+    display: flex;
+    input {
+      padding: 5px 10px;
+      margin-right: 5px;
+    }
+    button {
+      margin-right: 10px;
+      background: $gray-200;
+      border: 1px solid $gray-400;
+      border-radius: 3px;
+      cursor: pointer;
+      &:hover {
+        background: $gray-300;
+      }
+    }
   }
 </style>

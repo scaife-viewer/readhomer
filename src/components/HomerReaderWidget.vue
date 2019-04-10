@@ -30,7 +30,7 @@ export default {
       this.reference = reference;
       axios
         .get(`https://homer-api.herokuapp.com/${URN}:${this.reference}/`)
-        .then(r => this.passageText = r.data);
+        .then((r) => { this.passageText = r.data; });
     },
   },
   data() {
@@ -43,7 +43,14 @@ export default {
   computed: {
     text() {
       return this.lookupFromStore ? this.$store.state.passageText : this.passageText;
-    }
-  }
+    },
+  },
 };
 </script>
+
+<style lang="scss">
+.select-passage-reader {
+  width: 100%;
+}
+</style>
+
