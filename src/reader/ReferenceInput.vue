@@ -5,7 +5,7 @@
       <button :disabled="readFromStore" @click.prevent="lookup">Lookup</button>
     </div>
     <button class="global-input" @click.prevent="toggleReadFromSource" :class="{ active: readFromStore }">
-      Sync to Global Reference
+      Global Sync
     </button>
   </div>
 </template>
@@ -65,6 +65,10 @@ export default {
       margin: 1px 10px 1px 0;
       &:hover {
         background: $gray-300;
+      }
+      &.active {
+        background: #2f4685;
+        color: white;
       }
     }
   }
