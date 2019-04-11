@@ -5,6 +5,7 @@ import HomerParallelReaderWidget from './components/HomerParallelReaderWidget.vu
 import HomerReferenceInputWidget from './components/HomerReferenceInputWidget.vue';
 import ReaderWidget from './reader/ReaderWidget.vue';
 import SelectedTextInfoWidget from './reader/SelectedTextInfoWidget.vue';
+import CTSWidget from './reader/CTSWidget.vue';
 import TextSizeWidget from './text-size/TextSizeWidget.vue';
 
 export default {
@@ -15,5 +16,6 @@ export default {
   [HomerParallelReaderWidget.scaifeConfig.displayName]: HomerParallelReaderWidget,
   [TextSizeWidget.scaifeConfig.displayName]: TextSizeWidget,
   [SelectedTextInfoWidget.scaifeConfig.displayName]: SelectedTextInfoWidget,
+  [CTSWidget.scaifeConfig.displayName]: CTSWidget,
   [HomerReferenceInputWidget.scaifeConfig.displayName]: HomerReferenceInputWidget,
 };
