@@ -1,22 +1,40 @@
 <template>
   <div class="reference-input">
-    <div class="input-group" :class="{ disabled: readFromStore }">
-      <input v-model="reference" :disabled="readFromStore" @keyup.enter="lookup" placeholder="2.1-3.15" />
-      <button :disabled="readFromStore" @click.prevent="lookup">Lookup</button>
+    <div class="reference-input--top-row">
+      <div class="input-group" :class="{ disabled: readFromStore }">
+        <input v-model="reference" :disabled="readFromStore" @keyup.enter="lookup" placeholder="2.1-3.15" />
+        <button :disabled="readFromStore" @click.prevent="lookup">Lookup</button>
+      </div>
+      <button class="global-input" @click.prevent="toggleReadFromSource" :class="{ active: readFromStore }">
+        Global Sync
+      </button>
     </div>
-    <button class="global-input" @click.prevent="toggleReadFromSource" :class="{ active: readFromStore }">
-      Global Sync
-    </button>
+    <div class="reference-input--bottom-row">
+      <select v-model="urn">
+        <option v-for="choice in choices" :key="choice.urn" :value="choice.urn">{{ choice.label }}</option>
+      </select>
+    </div>
   </div>
 </template>
 
 <script>
+import { URN_ILIAD, URN_ODYSSEY } from '../constants';
+
 export default {
   data() {
     return {
+      urn: URN_ILIAD,
       reference: '',
       readFromStore: false
     };
+  },
+  computed: {
+    choices() {
+      return [
+        {urn: URN_ILIAD, label: 'Iliad'},
+        {urn: URN_ODYSSEY, label: 'Odyssey'},
+      ]
+    }
   },
   watch: {
     readFromStore() {
@@ -28,7 +46,7 @@ export default {
       this.readFromStore = !this.readFromStore;
     },
     lookup() {
-      this.$emit('lookup', this.reference);
+      this.$emit('lookup', this.urn, this.reference);
     },
   },
 };
@@ -43,8 +61,10 @@ export default {
     margin-bottom: 15px;
     background: $gray-100;
     flex: 1;
-    display: flex;
-    justify-content: space-between;
+    .reference-input--top-row {
+      display: flex;
+      justify-content: space-between;
+    }
     .global-input {
       margin: auto 0;
       font-size: 12px;

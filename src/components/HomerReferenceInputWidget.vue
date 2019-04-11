@@ -1,27 +1,24 @@
 <template>
   <div class="homer-input-widget">
-    <div class="input-group">
-        <input v-model="reference" />
-    </div>
-    <button @click.prevent="lookup">Lookup</button>
+    <ReferenceInput @lookup="onLookup" />
   </div>
 </template>
 
 <script>
+import ReferenceInput from '../reader/ReferenceInput.vue';
+
 export default {
   scaifeConfig: {
     displayName: 'Homer Reference Input',
     singleton: true,
     location: 'sidebar',
   },
-  data() {
-    return {
-      reference: '',
-    };
+  components: {
+    ReferenceInput,
   },
   methods: {
-    lookup() {
-      this.$store.dispatch('homerLookupReference', { reference: this.reference });
+    onLookup(urn, reference) {
+      this.$store.dispatch('homerLookupReference', { urn, reference });
     },
   },
 };

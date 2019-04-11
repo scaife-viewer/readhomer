@@ -11,8 +11,6 @@ import axios from 'axios';
 import Reader from '../reader/Reader.vue';
 import ReferenceInput from '../reader/ReferenceInput.vue';
 
-const URN = 'urn:cts:greekLit:tlg0012.tlg001.perseus-grc2';
-
 export default {
   scaifeConfig: {
     displayName: 'Homer Reader',
@@ -26,10 +24,10 @@ export default {
     onReadFromStore(lookupFromStore) {
       this.lookupFromStore = lookupFromStore;
     },
-    onLookup(reference) {
+    onLookup(urn, reference) {
       this.reference = reference;
       axios
-        .get(`https://homer-api.herokuapp.com/${URN}:${this.reference}/`)
+        .get(`https://homer-api.herokuapp.com/${urn}:${this.reference}/`)
         .then((r) => { this.passageText = r.data; });
     },
   },

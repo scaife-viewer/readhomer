@@ -12,11 +12,8 @@ export default {
         location: 'sidebar',
     },
     computed: {
-        card() {
-            return this.$store.state.selectedCard;
-        },
         reference() {
-            return this.card && `urn:cts:greekLit:tlg0012.tlg001.perseus-grc2:${this.card}`;
+            return this.$store.state.selectedReference;
         },
         apiLink() {
             return this.reference && `https://homer-api.herokuapp.com/${this.reference}`;

@@ -54,6 +54,8 @@ export default new Vuex.Store({
     // Homer
     cards,
     selectedCard: null,
+    selectedReference: '',
+    selectedBaseUrn: '',
   },
   getters: {
     getChunks: state => (start, end) => {
@@ -90,8 +92,11 @@ export default new Vuex.Store({
     [SET_PASSAGE_TEXT]: (state, lines) => { state.passageText = lines; },
     [TOGGLE_LEFT_SIDEBAR]: (state) => { state.leftOpen = !state.leftOpen; },
     [TOGGLE_RIGHT_SIDEBAR]: (state) => { state.rightOpen = !state.rightOpen; },
-    [HOMER_SELECT_CARD]: (state, { card }) => {
+    [HOMER_SELECT_CARD]: (state, { urn, card }) => {
+      console.log(urn, card);
       state.selectedCard = card;
+      state.selectedReference = `${urn}:${card}`;
+      state.selectedBaseUrn = urn;
     },
     [ADD_LEFT_WIDGET]: (state, displayName) => {
       state.widgets.left = [
@@ -136,12 +141,12 @@ export default new Vuex.Store({
     [SET_TEXT_SIZE]: ({ commit }, { size }) => {
       commit(SET_TEXT_SIZE, size);
     },
-    [HOMER_SELECT_CARD]: ({ commit, dispatch }, { card }) => {
+    [HOMER_SELECT_CARD]: ({ commit, dispatch }, { urn, card }) => {
       axios
-        .get(`https://homer-api.herokuapp.com/urn:cts:greekLit:tlg0012.tlg001.perseus-grc2:${card}/`)
+        .get(`https://homer-api.herokuapp.com/${urn}:${card}/`)
         .then((r) => {
           dispatch(SET_PASSAGE_TEXT, { lines: r.data });
-          commit(HOMER_SELECT_CARD, { card });
+          commit(HOMER_SELECT_CARD, { urn, card });
         });
     },
     [PREVIOUS_CARD]: ({ dispatch, state }) => {
@@ -156,7 +161,7 @@ export default new Vuex.Store({
           index = currentIndex - 1;
         }
       }
-      dispatch(HOMER_SELECT_CARD, { card: state.cards[index] });
+      dispatch(HOMER_SELECT_CARD, { urn: state.selectedBaseUrn, card: state.cards[index] });
     },
     [NEXT_CARD]: ({ dispatch, state }) => {
       let index;
@@ -170,10 +175,11 @@ export default new Vuex.Store({
           index = currentIndex + 1;
         }
       }
-      dispatch(HOMER_SELECT_CARD, { card: state.cards[index] });
+      dispatch(HOMER_SELECT_CARD, { urn: state.selectedBaseUrn, card: state.cards[index] });
     },
-    [HOMER_LOOKUP_REFERENCE]: ({ dispatch }, { reference }) => {
-      dispatch(HOMER_SELECT_CARD, { card: reference });
+    [HOMER_LOOKUP_REFERENCE]: ({ dispatch }, { urn, reference }) => {
+      console.log(urn, reference);
+      dispatch(HOMER_SELECT_CARD, { urn, card: reference });
     },
   },
 });
