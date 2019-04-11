@@ -18,6 +18,7 @@ import {
   CHANGE_MAIN_WIDGET,
   REMOVE_LEFT_WIDGET,
   REMOVE_RIGHT_WIDGET,
+  SET_TEXT_WIDTH,
 } from './constants';
 import cards from './homer';
 
@@ -48,6 +49,7 @@ export default new Vuex.Store({
 
     // Reader
     readerTextSize: 'md',
+    readerTextWidth: 'normal',
     passageText: [],
     word: null,
 
@@ -89,11 +91,11 @@ export default new Vuex.Store({
   },
   mutations: {
     [SET_TEXT_SIZE]: (state, size) => { state.readerTextSize = size; },
+    [SET_TEXT_WIDTH]: (state, width) => { state.readerTextWidth = width; },
     [SET_PASSAGE_TEXT]: (state, lines) => { state.passageText = lines; },
     [TOGGLE_LEFT_SIDEBAR]: (state) => { state.leftOpen = !state.leftOpen; },
     [TOGGLE_RIGHT_SIDEBAR]: (state) => { state.rightOpen = !state.rightOpen; },
     [HOMER_SELECT_CARD]: (state, { urn, card }) => {
-      console.log(urn, card);
       state.selectedCard = card;
       state.selectedReference = `${urn}:${card}`;
       state.selectedBaseUrn = urn;
@@ -178,8 +180,10 @@ export default new Vuex.Store({
       dispatch(HOMER_SELECT_CARD, { urn: state.selectedBaseUrn, card: state.cards[index] });
     },
     [HOMER_LOOKUP_REFERENCE]: ({ dispatch }, { urn, reference }) => {
-      console.log(urn, reference);
       dispatch(HOMER_SELECT_CARD, { urn, card: reference });
+    },
+    [SET_TEXT_WIDTH]: ({ commit }, { width }) => {
+      commit(SET_TEXT_WIDTH, width);
     },
   },
 });

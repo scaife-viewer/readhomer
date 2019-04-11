@@ -6,6 +6,7 @@ import SelectedTextInfoWidget from './reader/SelectedTextInfoWidget.vue';
 import CTSWidget from './reader/CTSWidget.vue';
 import CardReaderWidget from './reader/CardReaderWidget.vue';
 import TextSizeWidget from './text-size/TextSizeWidget.vue';
+import TextWidthWidget from './text-width/TextWidthWidget.vue';
 
 export default {
   [HomerReaderWidget.scaifeConfig.displayName]: HomerReaderWidget,
@@ -16,4 +17,5 @@ export default {
   [SelectedTextInfoWidget.scaifeConfig.displayName]: SelectedTextInfoWidget,
   [CTSWidget.scaifeConfig.displayName]: CTSWidget,
   [HomerReferenceInputWidget.scaifeConfig.displayName]: HomerReferenceInputWidget,
+  [TextWidthWidget.scaifeConfig.displayName]: TextWidthWidget,
 };

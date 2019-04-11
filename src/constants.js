@@ -12,6 +12,7 @@ export const PREVIOUS_CARD = 'previousCard';
 export const NEXT_CARD = 'nextCard';
 export const SET_PASSAGE_TEXT = 'setPassageText';
 export const SET_TEXT_SIZE = 'setTextSize';
+export const SET_TEXT_WIDTH = 'setTextWidth';
 
 // Homer Widgets
 export const HOMER_SELECT_CARD = 'homerSelectCard';
