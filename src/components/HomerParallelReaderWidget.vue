@@ -1,13 +1,12 @@
 <template>
   <div class="homer-parallel-widget">
-    <HomerSource v-model="source" />
-    <ParallelReader :passage-text="source" :right-passage-text="flipped" />
+    <HomerReaderWidget />
+    <HomerReaderWidget />
   </div>
 </template>
 
 <script>
-import HomerSource from './HomerSource.vue';
-import ParallelReader from '../reader/ParallelReader.vue';
+import HomerReaderWidget from './HomerReaderWidget.vue';
 
 export default {
   scaifeConfig: {
@@ -15,30 +14,18 @@ export default {
     location: 'main',
   },
   components: {
-    HomerSource,
-    ParallelReader,
-  },
-  data() {
-    return {
-      source: [],
-    };
-  },
-  computed: {
-    flipped() {
-      return this.source.map((line) => {
-        const reverseLine = line[1].split(' ').reverse().join(' ');
-        return [
-          line[0],
-          reverseLine + reverseLine,
-        ];
-      });
-    },
+    HomerReaderWidget,
   },
 };
 </script>
 
 <style lang="scss">
   .homer-parallel-widget {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    height: calc(100vh - 45px);
     .select-passage-reader {
         overflow-y: scroll;
     }
