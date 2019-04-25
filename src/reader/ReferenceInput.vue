@@ -1,18 +1,16 @@
 <template>
   <div class="reference-input">
     <div class="reference-input--top-row">
-      <div class="input-group" :class="{ disabled: readFromStore }">
-        <input v-model="reference" :disabled="readFromStore" @keyup.enter="lookup" placeholder="2.1-3.15" />
+      <div class="input-group" v-if="!readFromStore">
+        <input v-model="reference" @keyup.enter="lookup" placeholder="2.1-3.15" />
+        <div class="button-group">
+          <button v-for="choice in choices" :key="choice.urn" @click.prevent="urn = choice.urn" :class="{active: urn === choice.urn}">{{ choice.label }}</button>
+        </div>
         <button :disabled="readFromStore" @click.prevent="lookup">Lookup</button>
       </div>
       <button class="global-input" @click.prevent="toggleReadFromSource" :class="{ active: readFromStore }">
-        Global Sync
+        Sync
       </button>
-    </div>
-    <div class="reference-input--bottom-row">
-      <select v-model="urn">
-        <option v-for="choice in choices" :key="choice.urn" :value="choice.urn">{{ choice.label }}</option>
-      </select>
     </div>
   </div>
 </template>
@@ -31,8 +29,8 @@ export default {
   computed: {
     choices() {
       return [
-        {urn: URN_ILIAD, label: 'Iliad'},
-        {urn: URN_ODYSSEY, label: 'Odyssey'},
+        {urn: URN_ILIAD, label: 'Il.'},
+        {urn: URN_ODYSSEY, label: 'Od.'},
       ]
     }
   },
@@ -63,19 +61,26 @@ export default {
     flex: 1;
     .reference-input--top-row {
       display: flex;
-      justify-content: space-between;
-    }
-    .global-input {
-      margin: auto 0;
-      font-size: 12px;
+      justify-content: flex-start;
     }
     .input-group {
       display: flex;
       height: 30px;
+      border-right: 1px solid $gray-300;
+      margin-right: 10px;
     }
     input {
       padding: 5px 10px;
       margin-right: 5px;
+    }
+    .button-group {
+      margin: 1px 10px 1px 0;
+      button {
+        margin: 0;
+        text-align: center;
+        width: 40px;
+        height: 28px;
+      }
     }
     button {
       background: $gray-200;
