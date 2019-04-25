@@ -1,6 +1,6 @@
 <template>
-  <div class="homer-input-widget">
-    <ReferenceInput @lookup="onLookup" />
+  <div class="homer-reference-input-widget">
+    <ReferenceInput @lookup="onLookup" :disable-sync="true" />
   </div>
 </template>
 
@@ -27,8 +27,14 @@ export default {
 <style lang="scss">
   @import "../variables.scss";
 
-  .homer-input-widget {
+  .homer-reference-input-widget {
     margin: 0 2em;
     flex: 1;
+    .reference-input {
+      padding: 0;
+      border-bottom: none;
+      margin-bottom: 0;
+      background: none;
+    }
   }
 </style>

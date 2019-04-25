@@ -1,6 +1,6 @@
 <template>
   <div class="reference-input">
-    <div class="reference-input--top-row">
+    <div class="reference-input--top-row" :class="{'sync-disabled': disableSync === true}">
       <div class="input-group" v-if="!readFromStore">
         <input v-model="reference" @keyup.enter="lookup" placeholder="2.1-3.15" />
         <div class="button-group">
@@ -8,7 +8,7 @@
         </div>
         <button :disabled="readFromStore" @click.prevent="lookup">Lookup</button>
       </div>
-      <button class="global-input" @click.prevent="toggleReadFromSource" :class="{ active: readFromStore }">
+      <button class="global-input" v-if="!disableSync" @click.prevent="toggleReadFromSource" :class="{ active: readFromStore }">
         Sync
       </button>
     </div>
@@ -19,6 +19,7 @@
 import { URN_ILIAD, URN_ODYSSEY } from '../constants';
 
 export default {
+  props: ['disableSync'],
   data() {
     return {
       urn: URN_ILIAD,
@@ -68,6 +69,10 @@ export default {
       height: 30px;
       border-right: 1px solid $gray-300;
       margin-right: 10px;
+    }
+    .sync-disabled .input-group {
+      border-right: none;
+      margin-right: 0;
     }
     input {
       padding: 5px 10px;
