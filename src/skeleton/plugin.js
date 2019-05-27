@@ -1,6 +1,5 @@
 class Skeleton {
   constructor(widgets) {
-    console.log(widgets);
     this.widgets = widgets;
   }
 

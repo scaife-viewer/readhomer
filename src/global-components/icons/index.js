@@ -14,7 +14,7 @@ import { faPlusSquare } from '@fortawesome/free-solid-svg-icons/faPlusSquare';
 import { faCheckSquare } from '@fortawesome/free-solid-svg-icons/faCheckSquare';
 import { faSquare } from '@fortawesome/free-solid-svg-icons/faSquare';
 
-import faExpand from './faExpand';
+import { faExpand } from './faExpand';
 import faCompress from './faCompress';
 
 const iconMap = [

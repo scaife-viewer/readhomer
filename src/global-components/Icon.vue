@@ -4,19 +4,19 @@
 </template>
 
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import iconMap from './icons';
+  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+  import iconMap from './icons';
 
-export default {
-  name: 'icon',
-  props: ['name', 'inline'],
-  components: {
-    FontAwesomeIcon,
-  },
-  computed: {
-    icon() {
-      return iconMap[this.name];
+  export default {
+    name: 'icon',
+    props: ['name', 'inline'],
+    components: {
+      FontAwesomeIcon
     },
-  },
-};
+    computed: {
+      icon() {
+        return iconMap[this.name];
+      }
+    }
+  }
 </script>

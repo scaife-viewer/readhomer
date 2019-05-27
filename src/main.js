@@ -8,8 +8,9 @@ import widgets from './widgets';
 
 Vue.config.productionTip = false;
 
-Object.entries(globalComponents).forEach(([globalName, component]) => {
-  Vue.component(globalName, component);
+globalComponents.forEach((component) => {
+  // eslint-disable-next-line no-underscore-dangle
+  Vue.component(component.__file.split('/').pop().split('.')[0], component);
 });
 
 Vue.use(SkeletonPlugin, { widgets });
