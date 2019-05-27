@@ -10,7 +10,7 @@ import {
 
 export default function createStore() {
   return {
-    namespaced: true,  // expects to be namespaced under `scaife`
+    namespaced: true, // expects to be namespaced under `scaife`
     state: {
       rightOpen: true,
       leftOpen: true,
@@ -27,13 +27,13 @@ export default function createStore() {
       [ADD_LEFT_WIDGET]: (state, widget) => {
         state.widgets.left = [
           ...state.widgets.left,
-          widget
+          widget,
         ];
       },
       [ADD_RIGHT_WIDGET]: (state, widget) => {
         state.widgets.right = [
           ...state.widgets.right,
-          widget
+          widget,
         ];
       },
       [REMOVE_LEFT_WIDGET]: (state, index) => {

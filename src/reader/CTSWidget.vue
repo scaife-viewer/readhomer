@@ -7,19 +7,19 @@
 
 <script>
 export default {
-    scaifeConfig: {
-        displayName: 'CTS URN',
-        location: 'sidebar',
+  scaifeConfig: {
+    displayName: 'CTS URN',
+    location: 'sidebar',
+  },
+  computed: {
+    reference() {
+      return this.$store.state.selectedReference;
     },
-    computed: {
-        reference() {
-            return this.$store.state.selectedReference;
-        },
-        apiLink() {
-            return this.reference && `https://homer-api.herokuapp.com/${this.reference}`;
-        }
-    }
-}
+    apiLink() {
+      return this.reference && `https://homer-api.herokuapp.com/${this.reference}`;
+    },
+  },
+};
 </script>
 
 <style lang="scss">
@@ -27,4 +27,3 @@ export default {
         font-size: 14px;
     }
 </style>
-

@@ -11,6 +11,6 @@ export default new Vuex.Store({
   plugins: [createPersistedState()],
   ...createStore(),
   modules: {
-    scaife: skeletonCreateStore()
-  }
+    scaife: skeletonCreateStore(),
+  },
 });

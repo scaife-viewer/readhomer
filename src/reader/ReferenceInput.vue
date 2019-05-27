@@ -4,11 +4,20 @@
       <div class="input-group" v-if="!readFromStore">
         <input v-model="reference" @keyup.enter="lookup" placeholder="2.1-3.15" />
         <div class="button-group">
-          <button v-for="choice in choices" :key="choice.urn" @click.prevent="urn = choice.urn" :class="{active: urn === choice.urn}">{{ choice.label }}</button>
+          <button
+            v-for="choice in choices"
+            :key="choice.urn"
+            @click.prevent="urn = choice.urn"
+            :class="{active: urn === choice.urn}">
+            {{ choice.label }}
+          </button>
         </div>
         <button :disabled="readFromStore" @click.prevent="lookup">Lookup</button>
       </div>
-      <button class="global-input" v-if="!disableSync" @click.prevent="toggleReadFromSource" :class="{ active: readFromStore }">
+      <button class="global-input"
+        v-if="!disableSync"
+        @click.prevent="toggleReadFromSource"
+        :class="{ active: readFromStore }">
         Sync
       </button>
     </div>
@@ -24,21 +33,21 @@ export default {
     return {
       urn: URN_ILIAD,
       reference: '',
-      readFromStore: false
+      readFromStore: false,
     };
   },
   computed: {
     choices() {
       return [
-        {urn: URN_ILIAD, label: 'Il.'},
-        {urn: URN_ODYSSEY, label: 'Od.'},
-      ]
-    }
+        { urn: URN_ILIAD, label: 'Il.' },
+        { urn: URN_ODYSSEY, label: 'Od.' },
+      ];
+    },
   },
   watch: {
     readFromStore() {
       this.$emit('readFromStore', this.readFromStore);
-    }
+    },
   },
   methods: {
     toggleReadFromSource() {

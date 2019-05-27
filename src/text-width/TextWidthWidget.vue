@@ -14,7 +14,7 @@ export default {
     singleton: true,
     location: 'sidebar',
   },
-  components: { TextWidth }
+  components: { TextWidth },
 };
 </script>
 

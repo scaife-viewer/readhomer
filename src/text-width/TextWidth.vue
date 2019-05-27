@@ -1,5 +1,7 @@
 <template>
-    <span class="text-width-control" :class="{ active }" @click.prevent="onClick()">{{ label }}</span>
+    <span class="text-width-control" :class="{ active }" @click.prevent="onClick()">
+      {{ label }}
+    </span>
 </template>
 
 <script>
@@ -12,7 +14,7 @@ export default {
       return this.value.toUpperCase();
     },
     active() {
-      return this.textWidth == this.value;
+      return this.textWidth === this.value;
     },
     textWidth() {
       return this.$store.state.readerTextWidth;
@@ -23,7 +25,7 @@ export default {
       this.$store.dispatch(SET_TEXT_WIDTH, { width: this.value });
     },
   },
-}
+};
 </script>
 
 <style lang="scss">

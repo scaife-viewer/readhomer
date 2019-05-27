@@ -3,7 +3,11 @@
     <MainWidget>
       <h2 class="main-widget-heading" slot="heading">
         <span>{{ widgetHeader }}</span>
-        <EditLayoutButton v-if="isEditable && editing !== undefined" :editing="editing" @editToggle="$emit('editToggle')" />
+        <EditLayoutButton
+          v-if="isEditable && editing !== undefined"
+          :editing="editing"
+          @editToggle="$emit('editToggle')"
+        />
       </h2>
 
       <WidgetEditor slot="body" v-if="editing" class="main-widget-editor"

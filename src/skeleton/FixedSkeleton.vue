@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       editing: false,
-        isEditable: false,
+      isEditable: false,
     };
   },
   methods: {

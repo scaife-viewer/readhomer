@@ -35,11 +35,14 @@ export default {
     },
   },
   computed: {
+    text() {
+      return this.$store.state.passageText;
+    },
     passageStart() {
-      return this.$store.state.passageText && this.$store.state.passageText[0][0];
+      return this.text && this.text[0][0];
     },
     passageEnd() {
-      return this.$store.state.passageText && this.$store.state.passageText[this.$store.state.passageText.length - 1][0];
+      return this.text && this.text[this.text.length - 1][0];
     },
     cards() {
       return this.$store.getters.getChunks(this.passageStart, this.passageEnd);

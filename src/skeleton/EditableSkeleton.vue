@@ -89,7 +89,7 @@ export default {
         case 'right':
           this.$store.dispatch(`scaife/${ADD_RIGHT_WIDGET}`, { widget });
           break;
-      };
+      }
     },
     changeWidget(mainWidget) {
       this.$emit('changeWidget', mainWidget);
@@ -104,7 +104,7 @@ export default {
         case 'right':
           this.$store.dispatch(`scaife/${REMOVE_RIGHT_WIDGET}`, { index });
           break;
-      };
+      }
     },
   },
   computed: {

@@ -16,7 +16,7 @@ export default {
     },
     textWidth() {
       return this.$store.state.readerTextWidth;
-    }
+    },
   },
 };
 </script>

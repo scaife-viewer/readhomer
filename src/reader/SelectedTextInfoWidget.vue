@@ -2,7 +2,9 @@
     <div class="word-info-body" v-if="word">
         <div class="norm" @click="handleNormSelect(word)">{{ word.norm }}&nbsp;</div>
         <div class="analysis">
-            <span class="pos">{{ word.pos }}</span><span v-if="word.mood">.{{ mood }}</span><span v-if="word.number">.{{ number }}</span>
+            <span class="pos">{{ word.pos }}</span>
+            <span v-if="word.mood">.{{ mood }}</span>
+            <span v-if="word.number">.{{ number }}</span>
         </div>
         <div class="lemma">{{ word.lemma }}</div>
     </div>

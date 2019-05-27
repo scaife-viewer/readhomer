@@ -35,16 +35,20 @@ export default {
       return this.$store.state.selectedCard;
     },
     previousCard() {
-      if (this.currentCard === null || this.$store.state.cards.indexOf(this.currentCard) === 0) {
-        return this.$store.state.cards[this.$store.state.cards.length - 1];
+      if (this.currentCard === null || this.cards.indexOf(this.currentCard) === 0) {
+        return this.cards[this.cards.length - 1];
       }
-      return this.$store.state.cards[this.$store.state.cards.indexOf(this.currentCard) - 1];
+      return this.cards[this.cards.indexOf(this.currentCard) - 1];
+    },
+    cards() {
+      return this.$store.state.cards;
     },
     nextCard() {
-      if (this.currentCard === null || this.$store.state.cards.indexOf(this.currentCard) === this.$store.state.cards.length - 1) {
-        return this.$store.state.cards[0];
+      const currentIsLast = this.cards.indexOf(this.currentCard) === this.cards.length - 1;
+      if (this.currentCard === null || currentIsLast) {
+        return this.cards[0];
       }
-      return this.$store.state.cards[this.$store.state.cards.indexOf(this.currentCard) + 1];
+      return this.cards[this.cards.indexOf(this.currentCard) + 1];
     },
     passageText() {
       return this.$store.state.passageText;
