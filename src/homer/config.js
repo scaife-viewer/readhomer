@@ -2,6 +2,7 @@ import {
   PREVIOUS_CARD,
   NEXT_CARD,
   SET_PASSAGE_TEXT,
+  SET_ENGLISH_ALIGNMENT,
   HOMER_SELECT_CARD,
   HOMER_LOOKUP_REFERENCE,
   API_URL,
@@ -31,6 +32,7 @@ export default function createStore() {
       namespaced: true,
       state: {
         passageText: [],
+        englishText: [],
         word: null,
         cards,
         selectedCard: null,
@@ -74,17 +76,23 @@ export default function createStore() {
           state.selectedReference = `${urn}:${card}`;
           state.selectedBaseUrn = urn;
         },
+        [SET_ENGLISH_ALIGNMENT]: (state, { chunks }) => { state.englishText = chunks; },
       },
       actions: {
         [SET_PASSAGE_TEXT]: ({ commit }, { lines }) => {
           commit(SET_PASSAGE_TEXT, lines);
         },
+        [SET_ENGLISH_ALIGNMENT]: ({ commit }, { urn, card }) => {
+          api.fetchEnglishAlignment(urn, card).then(r => {
+            commit(SET_ENGLISH_ALIGNMENT, { chunks: r.data.chunks });
+          });
+        },
         [HOMER_SELECT_CARD]: ({ commit, dispatch }, { urn, card }) => {
           api.fetchText(urn, card).then(r => {
-            console.log('data', SET_PASSAGE_TEXT, HOMER_SELECT_CARD, r.data);
             dispatch(SET_PASSAGE_TEXT, { lines: r.data });
             dispatch(`scaifeReader/${SET_CTS_URN}`, { url: API_URL, urn: urn, reference: `${urn}:${card}` }, { root: true });
             commit(HOMER_SELECT_CARD, { urn, card });
+            dispatch(SET_ENGLISH_ALIGNMENT, { urn, card });
           });
         },
         [PREVIOUS_CARD]: ({ dispatch, state }) => {
