@@ -121,13 +121,13 @@ export default {
       return this.$store.state;
     },
     leftWidgets() {
-      return this.widgets.left;
+      return this.widgets.left.map(name => this.$scaife.skeleton.widgets[name]);
     },
     rightWidgets() {
-      return this.widgets.right;
+      return this.widgets.right.map(name => this.$scaife.skeleton.widgets[name]);
     },
     mainWidget() {
-      return this.widgets.mainWidget;
+      return this.widgets.mainWidget && this.$scaife.skeleton.widgets[this.widgets.mainWidget];
     },
     sidebarClasses() {
       return [

@@ -27,13 +27,13 @@ export default function createStore() {
       [ADD_LEFT_WIDGET]: (state, widget) => {
         state.widgets.left = [
           ...state.widgets.left,
-          widget,
+          widget.scaifeConfig.displayName,
         ];
       },
       [ADD_RIGHT_WIDGET]: (state, widget) => {
         state.widgets.right = [
           ...state.widgets.right,
-          widget,
+          widget.scaifeConfig.displayName,
         ];
       },
       [REMOVE_LEFT_WIDGET]: (state, index) => {
@@ -49,7 +49,7 @@ export default function createStore() {
       [CHANGE_MAIN_WIDGET]: (state, widget) => {
         state.widgets = {
           ...state.widgets,
-          mainWidget: widget,
+          mainWidget: widget.scaifeConfig.displayName,
         };
       },
     },
