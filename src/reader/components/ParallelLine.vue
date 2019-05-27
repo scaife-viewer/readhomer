@@ -13,14 +13,14 @@ export default {
   components: { ReaderLine },
   computed: {
     textSize() {
-      return this.$store.state.readerTextSize;
+      return this.$store.state.scaifeReader.textSize;
     },
   },
 };
 </script>
 
 <style lang="scss">
-  @import "../variables.scss";
+  @import "../../variables.scss";
 
   .parallel-line {
     padding: 5px;

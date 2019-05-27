@@ -17,19 +17,19 @@ export default {
       return this.textWidth === this.value;
     },
     textWidth() {
-      return this.$store.state.readerTextWidth;
+      return this.$store.state.scaifeReader.textWidth;
     },
   },
   methods: {
     onClick() {
-      this.$store.dispatch(SET_TEXT_WIDTH, { width: this.value });
+      this.$store.dispatch(`scaifeReader/${SET_TEXT_WIDTH}`, { width: this.value });
     },
   },
 };
 </script>
 
 <style lang="scss">
-  @import "../variables.scss";
+  @import "../../variables.scss";
 
   .text-width-control {
     cursor: pointer;

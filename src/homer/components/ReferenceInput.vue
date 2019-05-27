@@ -61,7 +61,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import "../variables.scss";
+  @import "../../variables.scss";
 
   .reference-input {
     padding: 15px 24px;

@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import "../variables.scss";
+  @import "../../variables.scss";
 
   .text-size-control {
     cursor: pointer;

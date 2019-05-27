@@ -47,19 +47,19 @@ export default {
   methods: {
     onLeftToggle() {
       this.$emit('leftToggle');
-      this.$store.dispatch(`scaife/${TOGGLE_LEFT_SIDEBAR}`);
+      this.$store.dispatch(`scaifeSkeleton/${TOGGLE_LEFT_SIDEBAR}`);
     },
     onRightToggle() {
       this.$emit('rightToggle');
-      this.$store.dispatch(`scaife/${TOGGLE_RIGHT_SIDEBAR}`);
+      this.$store.dispatch(`scaifeSkeleton/${TOGGLE_RIGHT_SIDEBAR}`);
     },
   },
   computed: {
     leftOpen() {
-      return this.$store.state.scaife.leftOpen;
+      return this.$store.state.scaifeSkeleton.leftOpen;
     },
     rightOpen() {
-      return this.$store.state.scaife.rightOpen;
+      return this.$store.state.scaifeSkeleton.rightOpen;
     },
     sidebarClasses() {
       return [

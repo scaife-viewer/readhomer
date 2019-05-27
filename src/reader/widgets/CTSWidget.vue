@@ -13,10 +13,13 @@ export default {
   },
   computed: {
     reference() {
-      return this.$store.state.selectedReference;
+      return this.$store.state.scaifeReader.selectedCTSReference;
+    },
+    url() {
+      return this.$store.state.scaifeReader.selectedCTSUrl;
     },
     apiLink() {
-      return this.reference && `https://homer-api.herokuapp.com/${this.reference}`;
+      return this.url && this.reference && `${this.url}${this.reference}`;
     },
   },
 };

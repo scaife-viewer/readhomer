@@ -6,7 +6,7 @@
     </div>
 </template>
 <script>
-import TextWidth from './TextWidth.vue';
+import TextWidth from '../components/TextWidth.vue';
 
 export default {
   scaifeConfig: {

@@ -9,7 +9,7 @@
 import axios from 'axios';
 
 import Reader from '../reader/Reader.vue';
-import ReferenceInput from '../reader/ReferenceInput.vue';
+import ReferenceInput from '../components/ReferenceInput.vue';
 
 export default {
   scaifeConfig: {
@@ -40,7 +40,7 @@ export default {
   },
   computed: {
     text() {
-      return this.lookupFromStore ? this.$store.state.passageText : this.passageText;
+      return this.lookupFromStore ? this.$store.state.homer.passageText : this.passageText;
     },
   },
 };

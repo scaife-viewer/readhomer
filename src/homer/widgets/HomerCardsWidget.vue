@@ -1,11 +1,11 @@
 <template>
-  <div class="homer-current-cards-widget">
-    <p>You are currently looking at the following cards:</p>
+  <div class="homer-card-widget">
     <div class="work">
       <div
         class="card"
         v-for="card in cards"
         :key="card"
+        :class="{ selected: selectedCard(card) }"
       >
         <a
           href
@@ -17,26 +17,25 @@
 </template>
 
 <script>
+import { HOMER_SELECT_CARD } from '../constants';
 
 export default {
   scaifeConfig: {
-    displayName: 'Homer Current Cards',
+    displayName: 'Homer Cards',
     singleton: true,
     location: 'sidebar',
   },
-  data() {
-    return {
-      reference: '',
-    };
-  },
   methods: {
-    lookup() {
-      this.$store.dispatch('homerLookupReference', { reference: this.reference });
+    selectCard(card) {
+      this.$store.dispatch(`homer/${HOMER_SELECT_CARD}`, { card });
+    },
+    selectedCard(card) {
+      return this.selectedCards.indexOf(card) > -1;
     },
   },
   computed: {
     text() {
-      return this.$store.state.passageText;
+      return this.$store.state.homer.passageText;
     },
     passageStart() {
       return this.text && this.text[0][0];
@@ -44,17 +43,20 @@ export default {
     passageEnd() {
       return this.text && this.text[this.text.length - 1][0];
     },
-    cards() {
+    selectedCards() {
       return this.$store.getters.getChunks(this.passageStart, this.passageEnd);
+    },
+    cards() {
+      return this.$store.state.homer.cards;
     },
   },
 };
 </script>
 
 <style lang="scss">
-  @import "../variables.scss";
+  @import "../../variables.scss";
 
-  .homer-current-cards-widget {
+  .homer-card-widget {
     margin: 0 2em;
     flex: 1;
 
@@ -73,5 +75,6 @@ export default {
         color: $gray-700;
       }
     }
+
   }
 </style>

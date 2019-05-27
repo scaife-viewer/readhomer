@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import ReferenceInput from '../reader/ReferenceInput.vue';
+import ReferenceInput from '../components/ReferenceInput.vue';
+import { HOMER_LOOKUP_REFERENCE } from '../constants';
 
 export default {
   scaifeConfig: {
@@ -18,14 +19,14 @@ export default {
   },
   methods: {
     onLookup(urn, reference) {
-      this.$store.dispatch('homerLookupReference', { urn, reference });
+      this.$store.dispatch(`homer/${HOMER_LOOKUP_REFERENCE}`, { urn, reference });
     },
   },
 };
 </script>
 
 <style lang="scss">
-  @import "../variables.scss";
+  @import "../../variables.scss";
 
   .homer-reference-input-widget {
     margin: 0 2em;

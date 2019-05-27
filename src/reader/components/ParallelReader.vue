@@ -16,7 +16,7 @@ export default {
   components: { ParallelLine },
   computed: {
     textSize() {
-      return this.$store.state.readerTextSize;
+      return this.$store.state.scaifeReader.textSize;
     },
   },
 };

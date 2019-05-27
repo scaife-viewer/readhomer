@@ -12,10 +12,10 @@ export default {
   components: { ReaderLine },
   computed: {
     textSize() {
-      return this.$store.state.readerTextSize;
+      return this.$store.state.scaifeReader.textSize;
     },
     textWidth() {
-      return this.$store.state.readerTextWidth;
+      return this.$store.state.scaifeReader.textWidth;
     },
   },
 };

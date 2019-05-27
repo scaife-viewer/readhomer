@@ -10,8 +10,9 @@
 </template>
 
 <script>
-import Card from './Card.vue';
-import Reader from './Reader.vue';
+import Card from '../../reader/components/Card.vue';
+import Reader from './../reader/components./Reader.vue';
+import { PREVIOUS_CARD, NEXT_CARD } from '../constants';
 
 export default {
   scaifeConfig: {
@@ -24,15 +25,15 @@ export default {
   },
   methods: {
     onPreviousCard() {
-      this.$store.dispatch('previousCard');
+      this.$store.dispatch(`homer/${PREVIOUS_CARD}`);
     },
     onNextCard() {
-      this.$store.dispatch('nextCard');
+      this.$store.dispatch(`homer/${NEXT_CARD}`);
     },
   },
   computed: {
     currentCard() {
-      return this.$store.state.selectedCard;
+      return this.$store.state.homer.selectedCard;
     },
     previousCard() {
       if (this.currentCard === null || this.cards.indexOf(this.currentCard) === 0) {
@@ -41,7 +42,7 @@ export default {
       return this.cards[this.cards.indexOf(this.currentCard) - 1];
     },
     cards() {
-      return this.$store.state.cards;
+      return this.$store.state.homer.cards;
     },
     nextCard() {
       const currentIsLast = this.cards.indexOf(this.currentCard) === this.cards.length - 1;
@@ -51,7 +52,7 @@ export default {
       return this.cards[this.cards.indexOf(this.currentCard) + 1];
     },
     passageText() {
-      return this.$store.state.passageText;
+      return this.$store.state.homer.passageText;
     },
   },
 };
