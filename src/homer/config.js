@@ -25,6 +25,8 @@ const parseHomerReference = (ref) => {
   };
 };
 
+const tokenizeContent = content => content.map(line => [...line, line[1].split(' ')]);
+
 export default function createStore() {
   return {
     namespace: 'homer',
@@ -84,7 +86,14 @@ export default function createStore() {
         },
         [SET_ENGLISH_ALIGNMENT]: ({ commit }, { urn, card }) => {
           api.fetchEnglishAlignment(urn, card).then((r) => {
-            commit(SET_ENGLISH_ALIGNMENT, { chunks: r.data.chunks });
+            const { chunks } = r.data;
+            const newChunks = chunks.map((chunk) => {
+              const newChunk = { ...chunk };
+              newChunk.items[0].content = tokenizeContent(chunk.items[0].content);
+              newChunk.items[1].content = tokenizeContent(chunk.items[1].content);
+              return newChunk;
+            });
+            commit(SET_ENGLISH_ALIGNMENT, { chunks: newChunks });
           });
         },
         [HOMER_SELECT_CARD]: ({ commit, dispatch }, { urn, card }) => {

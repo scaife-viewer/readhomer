@@ -1,11 +1,19 @@
 <template>
   <div class="line">
     <div class="line-ref">{{ lineRef }}</div>
-    <div class="line-text" v-html="text"></div>
+    <div class="line-text">
+      <template v-for="(textItem, textIndex) in text">
+        <ReaderLineToken v-for="(token, tokenIndex) in textItem[3]" :token="token" :key="`${textIndex}-${tokenIndex}`" />
+        {{ ' ' }}
+        <p v-if="textItem[2] === 'new'" :key="`${textIndex}`" />
+      </template>
+    </div>
   </div>
 </template>
 <script>
-export default {
-  props: ['lineRef', 'text'],
-};
+  import ReaderLineToken from './ReaderLineToken.vue';
+  export default {
+    components: { ReaderLineToken },
+    props: ['lineRef', 'text'],
+  };
 </script>

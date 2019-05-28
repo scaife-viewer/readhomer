@@ -1,7 +1,7 @@
 <template>
   <div class="parallel-reader" :class="['text', `text-${textSize}`]">
     <ParallelLine
-        v-for="(line, index) in passageText" :key="line[0]"
+        v-for="(line, index) in passageText" :key="`${index}-${line[0]}`"
         :left-line="line"
         :right-line="rightPassageText[index]"
     />

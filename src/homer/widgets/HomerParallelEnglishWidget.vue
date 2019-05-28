@@ -17,22 +17,10 @@ export default {
   },
   computed: {
     greek() {
-      return this.$store.state.homer.englishText.map(chunk => {
-          const lines = chunk.items[0].content.reduce((map, obj) => {
-            const line = `${map}<p>${obj[1]}</p>`;
-            return line;
-          }, '');
-          return [chunk.citation, lines];
-      });
+      return this.$store.state.homer.englishText.map(chunk => [chunk.citation, chunk.items[0].content]);
     },
     english() {
-      return this.$store.state.homer.englishText.map(chunk => {
-          const lines = chunk.items[1].content.reduce((map, obj) => {
-            const line = `${map}<p>${obj[1]}</p>`;
-            return line;
-          }, '');
-          return [chunk.citation, lines];
-      });
+      return this.$store.state.homer.englishText.map(chunk => [chunk.citation, chunk.items[1].content]);
     },
   }
 };
