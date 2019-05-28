@@ -8,7 +8,7 @@ import {
   API_URL,
 } from './constants';
 import {
-  SET_CTS_URN
+  SET_CTS_URN,
 } from '../reader/constants';
 
 import cards from './cards';
@@ -83,14 +83,14 @@ export default function createStore() {
           commit(SET_PASSAGE_TEXT, lines);
         },
         [SET_ENGLISH_ALIGNMENT]: ({ commit }, { urn, card }) => {
-          api.fetchEnglishAlignment(urn, card).then(r => {
+          api.fetchEnglishAlignment(urn, card).then((r) => {
             commit(SET_ENGLISH_ALIGNMENT, { chunks: r.data.chunks });
           });
         },
         [HOMER_SELECT_CARD]: ({ commit, dispatch }, { urn, card }) => {
-          api.fetchText(urn, card).then(r => {
+          api.fetchText(urn, card).then((r) => {
             dispatch(SET_PASSAGE_TEXT, { lines: r.data });
-            dispatch(`scaifeReader/${SET_CTS_URN}`, { url: API_URL, urn: urn, reference: `${urn}:${card}` }, { root: true });
+            dispatch(`scaifeReader/${SET_CTS_URN}`, { url: API_URL, urn, reference: `${urn}:${card}` }, { root: true });
             commit(HOMER_SELECT_CARD, { urn, card });
             dispatch(SET_ENGLISH_ALIGNMENT, { urn, card });
           });
