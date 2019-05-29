@@ -17,10 +17,10 @@ export default {
   },
   computed: {
     greek() {
-      return this.$store.state.homer.englishText.map(chunk => [chunk.citation, chunk.items[0].content]);
+      return this.$store.state.homer.passageText.map(chunk => [chunk.citation, chunk.items[0].content]);
     },
     english() {
-      return this.$store.state.homer.englishText.map(chunk => [chunk.citation, chunk.items[1].content]);
+      return this.$store.state.homer.passageText.map(chunk => [chunk.citation, chunk.items[1].content]);
     },
   }
 };

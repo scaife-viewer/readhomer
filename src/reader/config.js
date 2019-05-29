@@ -23,7 +23,6 @@ export default function createStore() {
           state.selectedCTSUrl = url;
           state.selectedCTSUrn = urn;
           state.selectedCTSReference = reference;
-          console.log(url, urn, reference);
         },
       },
       actions: {

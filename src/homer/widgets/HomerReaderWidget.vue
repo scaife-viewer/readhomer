@@ -6,9 +6,9 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from '../api';
 
-import Reader from '../reader/Reader.vue';
+import Reader from '../../reader/components/Reader.vue';
 import ReferenceInput from '../components/ReferenceInput.vue';
 
 export default {
@@ -26,9 +26,9 @@ export default {
     },
     onLookup(urn, reference) {
       this.reference = reference;
-      axios
-        .get(`https://homer-api.herokuapp.com/${urn}:${this.reference}/`)
-        .then((r) => { this.passageText = r.data; });
+      api.fetchEnglishAlignment(urn, this.reference).then((data) => {
+        this.passageText = data;
+      });
     },
   },
   data() {

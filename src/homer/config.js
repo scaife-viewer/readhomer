@@ -25,8 +25,6 @@ const parseHomerReference = (ref) => {
   };
 };
 
-const tokenizeContent = content => content.map(line => [...line, line[1].split(' ')]);
-
 export default function createStore() {
   return {
     namespace: 'homer',
@@ -34,7 +32,6 @@ export default function createStore() {
       namespaced: true,
       state: {
         passageText: [],
-        englishText: [],
         word: null,
         cards,
         selectedCard: null,
@@ -72,37 +69,22 @@ export default function createStore() {
         },
       },
       mutations: {
-        [SET_PASSAGE_TEXT]: (state, lines) => { state.passageText = lines; },
-        [HOMER_SELECT_CARD]: (state, { urn, card }) => {
+        [SET_PASSAGE_TEXT]: (state, { urn, card, chunks }) => {
+          state.passageText = chunks;
           state.selectedCard = card;
           state.selectedReference = `${urn}:${card}`;
           state.selectedBaseUrn = urn;
         },
-        [SET_ENGLISH_ALIGNMENT]: (state, { chunks }) => { state.englishText = chunks; },
       },
       actions: {
-        [SET_PASSAGE_TEXT]: ({ commit }, { lines }) => {
-          commit(SET_PASSAGE_TEXT, lines);
-        },
-        [SET_ENGLISH_ALIGNMENT]: ({ commit }, { urn, card }) => {
-          api.fetchEnglishAlignment(urn, card).then((r) => {
-            const { chunks } = r.data;
-            const newChunks = chunks.map((chunk) => {
-              const newChunk = { ...chunk };
-              newChunk.items[0].content = tokenizeContent(chunk.items[0].content);
-              newChunk.items[1].content = tokenizeContent(chunk.items[1].content);
-              return newChunk;
-            });
-            commit(SET_ENGLISH_ALIGNMENT, { chunks: newChunks });
+        [SET_ENGLISH_ALIGNMENT]: ({ commit, dispatch }, { urn, card }) => {
+          api.fetchEnglishAlignment(urn, card).then((data) => {
+            dispatch(`scaifeReader/${SET_CTS_URN}`, { url: API_URL, urn, reference: `${urn}:${card}` }, { root: true });
+            commit(SET_PASSAGE_TEXT, { urn, card, chunks: data });
           });
         },
         [HOMER_SELECT_CARD]: ({ commit, dispatch }, { urn, card }) => {
-          api.fetchText(urn, card).then((r) => {
-            dispatch(SET_PASSAGE_TEXT, { lines: r.data });
-            dispatch(`scaifeReader/${SET_CTS_URN}`, { url: API_URL, urn, reference: `${urn}:${card}` }, { root: true });
-            commit(HOMER_SELECT_CARD, { urn, card });
-            dispatch(SET_ENGLISH_ALIGNMENT, { urn, card });
-          });
+
         },
         [PREVIOUS_CARD]: ({ dispatch, state }) => {
           let index;
@@ -116,7 +98,7 @@ export default function createStore() {
               index = currentIndex - 1;
             }
           }
-          dispatch(HOMER_SELECT_CARD, { urn: state.selectedBaseUrn, card: state.cards[index] });
+          dispatch(SET_ENGLISH_ALIGNMENT, { urn: state.selectedBaseUrn, card: state.cards[index] });
         },
         [NEXT_CARD]: ({ dispatch, state }) => {
           let index;
@@ -130,10 +112,10 @@ export default function createStore() {
               index = currentIndex + 1;
             }
           }
-          dispatch(HOMER_SELECT_CARD, { urn: state.selectedBaseUrn, card: state.cards[index] });
+          dispatch(SET_ENGLISH_ALIGNMENT, { urn: state.selectedBaseUrn, card: state.cards[index] });
         },
         [HOMER_LOOKUP_REFERENCE]: ({ dispatch }, { urn, reference }) => {
-          dispatch(HOMER_SELECT_CARD, { urn, card: reference });
+          dispatch(SET_ENGLISH_ALIGNMENT, { urn, card: reference });
         },
       },
     },

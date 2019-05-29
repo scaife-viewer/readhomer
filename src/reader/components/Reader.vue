@@ -1,6 +1,11 @@
 <template>
   <div class="reader" :class="['text', `text-${textSize}`, `text-width-${textWidth}`]">
-    <ReaderLine v-for="line in passageText" :key="line[0]" :line-ref="line[0]" :text="line[1]" />
+    <ReaderLine
+      v-for="(line, index) in passageText"
+      :key="`${index}-${line.citation}`"
+      :line-ref="line.citation"
+      :text="line.items[0].content"
+    />
   </div>
 </template>
 
@@ -27,13 +32,7 @@ export default {
     margin: 0.5em 0.5em 1em;
 
     .line {
-      display: flex;
-      align-items: flex-start;
       .line-ref {
-        font-family: 'Noto Sans';
-        color: #69C;
-        width: 3.5em;
-        flex-shrink: 0;
       }
       .line-text {
       }

@@ -10,7 +10,7 @@ import HomerReaderWidget from './HomerReaderWidget.vue';
 
 export default {
   scaifeConfig: {
-    displayName: 'Homer English Parallel Reader',
+    displayName: 'Homer Independepent Parallel Reader',
     location: 'main',
   },
   components: {
