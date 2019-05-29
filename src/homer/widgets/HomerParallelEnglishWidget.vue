@@ -1,5 +1,5 @@
 <template>
-  <div class="homer-parallel-widget">
+  <div class="homer-parallel-english-widget">
     <ParallelReader :passage-text="greek" :right-passage-text="english" />
   </div>
 </template>
@@ -27,12 +27,11 @@ export default {
 </script>
 
 <style lang="scss">
-  .homer-parallel-widget {
+  .homer-parallel-english-widget .parallel-reader .parallel-line {
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: 1fr 1fr;
     grid-gap: 10px;
-    height: calc(100vh - 45px);
     .select-passage-reader {
         overflow-y: scroll;
     }
