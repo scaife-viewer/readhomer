@@ -13,6 +13,8 @@ import { faMinusCircle } from '@fortawesome/free-solid-svg-icons/faMinusCircle';
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons/faPlusSquare';
 import { faCheckSquare } from '@fortawesome/free-solid-svg-icons/faCheckSquare';
 import { faSquare } from '@fortawesome/free-solid-svg-icons/faSquare';
+import { faLink } from '@fortawesome/free-solid-svg-icons/faLink';
+
 
 import faExpand from './faExpand';
 import faCompress from './faCompress';
@@ -21,6 +23,7 @@ const iconMap = [
   faArrowLeft,
   faArrowRight,
   faExpand,
+  faLink,
   faCog,
   faCompress,
   faChevronDown,

@@ -1,25 +1,28 @@
 <template>
   <div class="reference-input">
     <div class="reference-input--top-row" :class="{'sync-disabled': disableSync === true}">
-      <div class="input-group" v-if="!readFromStore">
-        <input v-model="reference" @keyup.enter="lookup" placeholder="2.1-3.15" />
-        <div class="button-group">
-          <button
-            v-for="choice in choices"
-            :key="choice.urn"
-            @click.prevent="urn = choice.urn"
-            :class="{active: urn === choice.urn}">
-            {{ choice.label }}
-          </button>
-        </div>
-        <button :disabled="readFromStore" @click.prevent="lookup">Lookup</button>
+      <div class="input-group">
+        <template v-if="!readFromStore">
+          <div class="link-group">
+            <a
+              href
+              v-for="choice in choices"
+              :key="choice.urn"
+              @click.prevent="urn = choice.urn"
+              :class="{active: urn === choice.urn}">
+              {{ choice.label }}
+            </a>
+          </div>
+          <input v-model="reference" @keyup.enter="lookup" placeholder="2.1-3.15" />
+        </template>
+        <div class="sync-label" v-else>Synced with <strong>{{ selectedCard }}</strong></div>
+        <button class="global-input"
+          v-if="!disableSync"
+          @click.prevent="toggleReadFromSource"
+          :class="{ active: readFromStore }">
+          <icon name="link" />
+        </button>
       </div>
-      <button class="global-input"
-        v-if="!disableSync"
-        @click.prevent="toggleReadFromSource"
-        :class="{ active: readFromStore }">
-        Sync
-      </button>
     </div>
   </div>
 </template>
@@ -37,11 +40,18 @@ export default {
     };
   },
   computed: {
+    selectedCard() {
+      return this.$store.state.homer.selectedCard;
+    },
     choices() {
-      return [
+      const c = [
         { urn: URN_ILIAD, label: 'Il.' },
         { urn: URN_ODYSSEY, label: 'Od.' },
       ];
+      if (this.urn === URN_ILIAD) {
+        c.reverse();
+      }
+      return c;
     },
   },
   watch: {
@@ -70,8 +80,7 @@ export default {
     background: $gray-100;
     flex: 1;
     .reference-input--top-row {
-      display: flex;
-      justify-content: flex-start;
+      // display: flex;
     }
     .input-group {
       display: flex;
@@ -83,32 +92,33 @@ export default {
       border-right: none;
       margin-right: 0;
     }
+    .sync-label {
+      flex: 1;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
     input {
       padding: 5px 10px;
-      margin-right: 5px;
+      flex: 1;
     }
-    .button-group {
-      margin: 1px 10px 1px 0;
-      button {
-        margin: 0;
+    .input-group {
+    }
+    .link-group {
+      margin-bottom: auto;
+      margin-top: auto;
+      a {
+        font-size: 14px;
+        margin-right: 20px;
         text-align: center;
         width: 40px;
         height: 28px;
+        color: $gray-700;
+        text-decoration: none;
       }
     }
-    button {
-      background: $gray-200;
-      border: 1px solid $gray-400;
-      border-radius: 3px;
-      cursor: pointer;
-      margin: 1px 10px 1px 0;
-      &:hover {
-        background: $gray-300;
-      }
-      &.active {
-        background: #2f4685;
-        color: white;
-      }
+    a.active {
+      color: black;
+      font-weight: bold
     }
   }
 </style>
