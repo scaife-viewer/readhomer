@@ -2,6 +2,7 @@ export const SET_PASSAGE_TEXT = 'setPassageText';
 export const SET_ENGLISH_ALIGNMENT = 'setEnglishAlignment';
 export const PREVIOUS_CARD = 'previousCard';
 export const NEXT_CARD = 'nextCard';
+export const HOVER_TOKEN = 'hoverToken';
 
 export const HOMER_SELECT_CARD = 'homerSelectCard';
 export const HOMER_LOOKUP_REFERENCE = 'homerLookupReference';
