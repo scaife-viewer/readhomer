@@ -33,6 +33,9 @@ export default {
 
     .line {
       .line-ref {
+        font-size: 10pt;
+        color: #69C;
+        font-family: 'Noto Sans';
       }
       .line-text {
       }
