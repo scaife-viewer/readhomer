@@ -1,7 +1,7 @@
 <template>
   <div class="parallel-line">
-    <ReaderLine :line-ref="leftLine[0]" :text="leftLine[1]" side="left" />
-    <ReaderLine :line-ref="rightLine[0]" :text="rightLine[1]" side="right" />
+    <ReaderLine :line-ref="leftLine[0]" :text="leftLine[1]" side="left" @hover="onHover" :other-side="hoverStates.right" />
+    <ReaderLine :line-ref="rightLine[0]" :text="rightLine[1]" side="right" @hover="onHover" :other-side="hoverStates.left" />
   </div>
 </template>
 
@@ -16,6 +16,23 @@ export default {
       return this.$store.state.scaifeReader.textSize;
     },
   },
+  data() {
+    return {
+      hoverStates: {
+        left: [],
+        right: [],
+      }
+    }
+  },
+  methods: {
+    onHover(side, lineIndex, tokenIndex) {
+      this.hoverStates = {
+        left: [],
+        right: [],
+      };
+      this.hoverStates[side] = [lineIndex, tokenIndex];
+    }
+  }
 };
 </script>
 

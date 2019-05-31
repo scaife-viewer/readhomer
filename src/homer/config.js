@@ -6,13 +6,11 @@ import {
   HOMER_SELECT_CARD,
   HOMER_LOOKUP_REFERENCE,
   API_URL,
-  HOVER_TOKEN,
 } from './constants';
 import {
   SET_CTS_URN,
 } from '../reader/constants';
 
-import annotations from './annotations';
 import cards from './cards';
 import api from './api';
 
@@ -36,10 +34,6 @@ export default function createStore() {
         passageText: [],
         word: null,
         cards,
-        annotations,
-        hoveredCitation: '',
-        hoveredTokenIndex: '',
-        hoveredSide: '',
         selectedCard: null,
         selectedReference: '',
         selectedBaseUrn: '',
@@ -82,16 +76,8 @@ export default function createStore() {
           state.selectedReference = `${urn}:${card}`;
           state.selectedBaseUrn = urn;
         },
-        [HOVER_TOKEN]: (state, { citation, tokenIndex, side }) => {
-          state.hoveredTokenIndex = tokenIndex;
-          state.hoveredCitation = citation;
-          state.hoveredSide = side;
-        },
       },
       actions: {
-        [HOVER_TOKEN]: ({ commit }, { citation, tokenIndex, side }) => {
-          commit(HOVER_TOKEN, { citation, tokenIndex, side });
-        },
         [SET_ENGLISH_ALIGNMENT]: ({ commit, dispatch }, { urn, card }) => {
           api.fetchEnglishAlignment(urn, card).then((data) => {
             dispatch(`scaifeReader/${SET_CTS_URN}`, { url: API_URL, urn, reference: `${urn}:${card}` }, { root: true });
