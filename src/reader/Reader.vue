@@ -32,7 +32,9 @@ export default {
       .line-ref {
         font-family: 'Noto Sans';
         color: #69C;
-        width: 3.5em;
+        width: 2.5em;
+        text-align: right;
+        margin-right: 1em;
         flex-shrink: 0;
       }
       .line-text {
