@@ -2,15 +2,15 @@ import Vue from 'vue';
 import App from './App.vue';
 import store from './store';
 
-import SkeletonPlugin from './skeleton/plugin';
 import globalComponents from './global-components';
+import SkeletonPlugin from './skeleton/plugin';
 import widgets from './widgets';
 
 Vue.config.productionTip = false;
 
-globalComponents.forEach((component) => {
-  // eslint-disable-next-line no-underscore-dangle
-  Vue.component(component.__file.split('/').pop().split('.')[0], component);
+// Register exported global components.
+Object.entries(globalComponents).forEach(([name, component]) => {
+  Vue.component(name, component);
 });
 
 Vue.use(SkeletonPlugin, { widgets });
